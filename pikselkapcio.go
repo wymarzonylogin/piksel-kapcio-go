@@ -5,7 +5,10 @@ import (
 	"image/color"
 	"image/png"
 	"log"
+	"math/rand"
 	"net/http"
+	"strings"
+	"time"
 )
 
 //GenerateImageData generates image data
@@ -24,4 +27,18 @@ func ImageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "image/png")
+}
+
+//GenerateRandomText generates pseudo random uppercased string of specified length
+func GenerateRandomText(length int) string {
+	rand.Seed(time.Now().Unix())
+
+	in := "0123456789abcdefghijklmnopqrstuvwxyz"
+
+	inRune := []rune(in)
+	rand.Shuffle(len(inRune), func(i, j int) {
+		inRune[i], inRune[j] = inRune[j], inRune[i]
+	})
+
+	return strings.ToUpper(string(inRune)[:length])
 }
