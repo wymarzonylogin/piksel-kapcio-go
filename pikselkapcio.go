@@ -42,3 +42,13 @@ func GenerateRandomText(length int) string {
 
 	return strings.ToUpper(string(inRune)[:length])
 }
+
+func generateEmptyPixelMap(textLength int) {
+	pixelMap := make([][7]string, textLength*7)
+	for x := 0; x < textLength*7; x++ {
+		for y := 0; y < 7; y++ {
+			pixelMap[x][y] = "000000"
+		}
+
+	}
+}

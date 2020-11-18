@@ -1,5 +1,13 @@
 package pikselkapcio
 
+//PadCharacterMap inserts 0s as first and last elements of character map ("vertical padding" for a character)
+func PadCharacterMap(characterMap [5]int) [7]int {
+	var result [7]int
+	copy(result[1:], characterMap[0:5])
+
+	return result
+}
+
 //GetCharacterMap returns integer based map for character
 func GetCharacterMap(character rune) [5]int {
 	switch character {
