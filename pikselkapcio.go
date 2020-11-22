@@ -23,7 +23,7 @@ func GenerateImageData() image.PalettedImage {
 	imageWidth := 7 * config.Scale * len(text)
 	imageHeight := 7 * config.Scale
 
-	rect := image.Rect(0, 0, imageWidth-1, imageHeight-1)
+	rect := image.Rect(0, 0, imageWidth, imageHeight)
 	img := image.NewPaletted(rect, []color.Color{color.Black, color.White})
 	println("Text: " + text)
 	pixelMap := generatePixelMapForText(text)
@@ -31,7 +31,11 @@ func GenerateImageData() image.PalettedImage {
 	for columnIndex, column := range pixelMap {
 		for rowIndex, row := range column {
 			if row == "FFFFFF" {
-				img.SetColorIndex(columnIndex, rowIndex, 1)
+				for colOffset := 0; colOffset < config.Scale; colOffset++ {
+					for rowOffset := 0; rowOffset < config.Scale; rowOffset++ {
+						img.SetColorIndex(columnIndex*config.Scale+colOffset, rowIndex*config.Scale+rowOffset, 1)
+					}
+				}
 			}
 		}
 	}

@@ -8,7 +8,7 @@ import (
 
 //GenerateRandomText generates pseudo random uppercased string of specified length
 func GenerateRandomText(length int) string {
-	rand.Seed(time.Now().Unix())
+	rand.Seed(time.Now().UnixNano())
 
 	alphabet := "0123456789abcdefghijklmnopqrstuvwxyz"
 
