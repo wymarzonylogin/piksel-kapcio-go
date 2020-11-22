@@ -8,6 +8,10 @@ import (
 
 //GenerateRandomText generates pseudo random uppercased string of specified length
 func GenerateRandomText(length int) string {
+	if length > 36 || length < 0 {
+		panic("Length of ranfom text has to be in [1,36] range")
+	}
+
 	rand.Seed(time.Now().UnixNano())
 
 	alphabet := "0123456789abcdefghijklmnopqrstuvwxyz"

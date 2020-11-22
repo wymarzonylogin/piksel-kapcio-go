@@ -6,8 +6,10 @@ import (
 	"image/color"
 	"image/png"
 	"log"
+	"math/rand"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 //Config strucure for whole captcha generation
@@ -15,26 +17,23 @@ type Config struct {
 	Scale int
 }
 
+func getDefaultConfig() Config {
+	return Config{Scale: 7}
+}
+
 //GenerateImageData generates image data
-func GenerateImageData() image.PalettedImage {
-	config := Config{Scale: 7}
+func GenerateImageData(config Config) image.Image {
 	text := GenerateRandomText(4)
-
-	imageWidth := 7 * config.Scale * len(text)
-	imageHeight := 7 * config.Scale
-
-	rect := image.Rect(0, 0, imageWidth, imageHeight)
-	img := image.NewPaletted(rect, []color.Color{color.Black, color.White})
-	println("Text: " + text)
-	pixelMap := generatePixelMapForText(text)
+	rect := image.Rect(0, 0, 7*config.Scale*len(text), 7*config.Scale)
+	img := image.NewRGBA(rect)
+	pixelMap := generatePixelColorMapForText(text)
 
 	for columnIndex, column := range pixelMap {
-		for rowIndex, row := range column {
-			if row == "FFFFFF" {
-				for colOffset := 0; colOffset < config.Scale; colOffset++ {
-					for rowOffset := 0; rowOffset < config.Scale; rowOffset++ {
-						img.SetColorIndex(columnIndex*config.Scale+colOffset, rowIndex*config.Scale+rowOffset, 1)
-					}
+		for rowIndex, colorValue := range column {
+
+			for colOffset := 0; colOffset < config.Scale; colOffset++ {
+				for rowOffset := 0; rowOffset < config.Scale; rowOffset++ {
+					img.SetRGBA(columnIndex*config.Scale+colOffset, rowIndex*config.Scale+rowOffset, colorValue)
 				}
 			}
 		}
@@ -45,18 +44,22 @@ func GenerateImageData() image.PalettedImage {
 
 //ImageHandler serves generated image as PNG
 func ImageHandler(w http.ResponseWriter, r *http.Request) {
-	if err := png.Encode(w, GenerateImageData()); err != nil {
+	config := Config{
+		Scale: 22,
+	}
+
+	if err := png.Encode(w, GenerateImageData(config)); err != nil {
 		log.Println("Error while encoding image.")
 	}
 
 	w.Header().Set("Content-Type", "image/png")
 }
 
-func generateEmptyPixelMap(textLength int) [][7]string {
-	pixelMap := make([][7]string, textLength*7)
+func generateEmptyPixelMap(textLength int) [][7]color.RGBA {
+	pixelMap := make([][7]color.RGBA, textLength*7)
 	for x := 0; x < textLength*7; x++ {
 		for y := 0; y < 7; y++ {
-			pixelMap[x][y] = "000000"
+			pixelMap[x][y] = color.RGBA{}
 		}
 
 	}
@@ -64,19 +67,24 @@ func generateEmptyPixelMap(textLength int) [][7]string {
 	return pixelMap
 }
 
-func generatePixelMapForText(text string) [][7]string {
+func generatePixelColorMapForText(text string) [][7]color.RGBA {
 	pixelMap := generateEmptyPixelMap(len(text))
+	rand.Seed(time.Now().UnixNano())
+	colorPairs := GetDefaultColorPairs()
 
 	for characterIndex, character := range text {
 		characterMap := GetPaddedCharacterMap(character)
+		colorPair := colorPairs[rand.Intn(len(colorPairs))]
 
 		for lineIndex, line := range characterMap {
 			lineBitMap := fmt.Sprintf("%06s", strconv.FormatInt(line, 2)) + "0"
 
 			for bitOffset, bit := range lineBitMap {
-				value := "000000"
+				value := color.RGBA{}
 				if bit == '1' {
-					value = "FFFFFF"
+					value = colorPair.foregroundColor
+				} else {
+					value = colorPair.backgroundColor
 				}
 				pixelMap[characterIndex*7+bitOffset][lineIndex] = value
 			}
