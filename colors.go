@@ -24,47 +24,40 @@ func GenerateRGBColorFromHexString(hexString string) color.RGBA {
 
 //GetDefaultColorPairs returns default set of background and foreground color pairs
 func GetDefaultColorPairs() []ColorPair {
-	colorPairs := []ColorPair{}
-	colorPairs = append(colorPairs,
-		ColorPair{
+	colorPairs := []ColorPair{
+		{
 			backgroundColor: GenerateRGBColorFromHexString("CCCCCC"),
 			foregroundColor: GenerateRGBColorFromHexString("888888"),
-		})
-	colorPairs = append(colorPairs,
-		ColorPair{
+		},
+		{
 			backgroundColor: GenerateRGBColorFromHexString("888888"),
 			foregroundColor: GenerateRGBColorFromHexString("CCCCCC"),
-		})
-	colorPairs = append(colorPairs,
-		ColorPair{
+		},
+		{
 			backgroundColor: GenerateRGBColorFromHexString("00CC00"),
 			foregroundColor: GenerateRGBColorFromHexString("97EA97"),
-		})
-	colorPairs = append(colorPairs,
-		ColorPair{
+		},
+		{
 			backgroundColor: GenerateRGBColorFromHexString("97EA97"),
 			foregroundColor: GenerateRGBColorFromHexString("00CC00"),
-		})
-	colorPairs = append(colorPairs,
-		ColorPair{
+		},
+		{
 			backgroundColor: GenerateRGBColorFromHexString("9797EA"),
 			foregroundColor: GenerateRGBColorFromHexString("5C5CDE"),
-		})
-	colorPairs = append(colorPairs,
-		ColorPair{
+		},
+		{
 			backgroundColor: GenerateRGBColorFromHexString("5C5CDE"),
 			foregroundColor: GenerateRGBColorFromHexString("9797EA"),
-		})
-	colorPairs = append(colorPairs,
-		ColorPair{
+		},
+		{
 			backgroundColor: GenerateRGBColorFromHexString("FF8800"),
 			foregroundColor: GenerateRGBColorFromHexString("FFCE97"),
-		})
-	colorPairs = append(colorPairs,
-		ColorPair{
+		},
+		{
 			backgroundColor: GenerateRGBColorFromHexString("FFCE97"),
 			foregroundColor: GenerateRGBColorFromHexString("FF8800"),
-		})
+		},
+	}
 
 	return colorPairs
 }

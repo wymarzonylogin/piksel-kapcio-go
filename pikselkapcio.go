@@ -45,7 +45,7 @@ func GenerateImageData(config Config) image.Image {
 //ImageHandler serves generated image as PNG
 func ImageHandler(w http.ResponseWriter, r *http.Request) {
 	config := Config{
-		Scale: 22,
+		Scale: 10,
 	}
 
 	if err := png.Encode(w, GenerateImageData(config)); err != nil {
