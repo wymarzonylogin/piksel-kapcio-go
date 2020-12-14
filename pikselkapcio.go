@@ -49,7 +49,6 @@ func GenerateImageData(customConfig Config) image.Image {
 
 	for columnIndex, column := range pixelMap {
 		for rowIndex, colorValue := range column {
-
 			for colOffset := 0; colOffset < config.Scale; colOffset++ {
 				for rowOffset := 0; rowOffset < config.Scale; rowOffset++ {
 					img.SetRGBA(columnIndex*config.Scale+colOffset, rowIndex*config.Scale+rowOffset, colorValue)
@@ -62,7 +61,7 @@ func GenerateImageData(customConfig Config) image.Image {
 }
 
 func generatePixelColorMapForText(text string, colorPairs []colorPair) [][7]color.RGBA {
-	pixelMap := generateEmptyPixelMap(len(text))
+	pixelMap := make([][7]color.RGBA, len(text)*7)
 	rand.Seed(time.Now().UnixNano())
 
 	for characterIndex, character := range text {
@@ -111,18 +110,6 @@ func ImageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "image/png")
-}
-
-func generateEmptyPixelMap(textLength int) [][7]color.RGBA {
-	pixelMap := make([][7]color.RGBA, textLength*7)
-	for x := 0; x < textLength*7; x++ {
-		for y := 0; y < 7; y++ {
-			pixelMap[x][y] = color.RGBA{}
-		}
-
-	}
-
-	return pixelMap
 }
 
 func mergeConfig(customConfig Config) Config {
