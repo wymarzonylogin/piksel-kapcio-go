@@ -9,8 +9,8 @@ import (
 	"time"
 )
 
-//GenerateImageData generates image data
-func GenerateImageData(customConfig Config) image.Image {
+//GenerateCode generates image data, returns both code as string and image data
+func GenerateCode(customConfig Config) (string, image.Image) {
 	config := mergeConfig(customConfig)
 	text := getText(config)
 	colorPairs := generateColorPairs(config.ColorHexStringPairs)
@@ -28,7 +28,7 @@ func GenerateImageData(customConfig Config) image.Image {
 		}
 	}
 
-	return img
+	return text, img
 }
 
 func generatePixelColorMapForText(text string, colorPairs []colorPair) [][7]color.RGBA {

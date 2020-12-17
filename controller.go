@@ -25,8 +25,9 @@ func ImageHandler(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	if err := png.Encode(w, GenerateImageData(config)); err != nil {
-		log.Println("Error while encoding image.")
+	codeText, codeImageData := GenerateCode(config)
+	if err := png.Encode(w, codeImageData); err != nil {
+		log.Printf("Error while encoding image for code '%s'", codeText)
 	}
 
 	w.Header().Set("Content-Type", "image/png")
