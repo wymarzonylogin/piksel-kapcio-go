@@ -1,20 +1,20 @@
 package pikselkapcio
 
-//GetPaddedCharacterMap returns map of integers representing 7 rows of pixels of a given character, where first and last rows are empty
-func GetPaddedCharacterMap(character rune) [7]int64 {
-	return PadCharacterMap(GetCharacterMap(character))
+//getPaddedCharacterMap returns map of integers representing 7 rows of pixels of a given character, where first and last rows are empty
+func getPaddedCharacterMap(character rune) [7]int64 {
+	return padCharacterMap(getCharacterMap(character))
 }
 
-//PadCharacterMap inserts zeros as first and last elements of character map ("vertical padding" for a character - empty first and last lines)
-func PadCharacterMap(characterMap [5]int64) [7]int64 {
+//gadCharacterMap inserts zeros as first and last elements of character map ("vertical padding" for a character - empty first and last lines)
+func padCharacterMap(characterMap [5]int64) [7]int64 {
 	var result [7]int64
 	copy(result[1:], characterMap[0:5])
 
 	return result
 }
 
-//GetCharacterMap returns map of integers representing 5 rows of pixels of a given character
-func GetCharacterMap(character rune) [5]int64 {
+//getCharacterMap returns map of integers representing 5 rows of pixels of a given character
+func getCharacterMap(character rune) [5]int64 {
 	switch character {
 	case 'A':
 		return [5]int64{14, 17, 31, 17, 17}

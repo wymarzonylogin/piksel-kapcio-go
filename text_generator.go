@@ -6,9 +6,9 @@ import (
 	"time"
 )
 
-//GetText returns a string based on config: if custom words are defined, it's a randomly picked word out of custom words, otherwise it's a pseduorandom alphanumerical
+//getText returns a string based on config: if custom words are defined, it's a randomly picked word out of custom words, otherwise it's a pseduorandom alphanumerical
 //string of a given length
-func GetText(config Config) string {
+func getText(config Config) string {
 	customWordsCount := len(config.CustomWords)
 
 	if config.TextGenerationMode == TextGenerationCustomWords && customWordsCount > 0 {
@@ -19,11 +19,11 @@ func GetText(config Config) string {
 		return strings.ToUpper(config.CustomWords[wordIndex])
 	}
 
-	return GenerateRandomText(config.RandomTextLength)
+	return generateRandomText(config.RandomTextLength)
 }
 
-//GenerateRandomText generates pseudorandom uppercased alphanumeric string of specified length
-func GenerateRandomText(length int) string {
+//generateRandomText generates pseudorandom uppercased alphanumeric string of specified length
+func generateRandomText(length int) string {
 	if length > 36 || length < 1 {
 		panic("Length of random text has to be in [1,36] range")
 	}
@@ -38,22 +38,4 @@ func GenerateRandomText(length int) string {
 	})
 
 	return strings.ToUpper(string(alphabetRunes)[:length])
-}
-
-func getDefaultCustomWords() []string {
-	return []string{
-		"angry",
-		"capitol",
-		"cappuccino",
-		"coyote",
-		"czomo",
-		"dubi",
-		"electra",
-		"login",
-		"moustache",
-		"pterodakl",
-		"smacznego",
-		"wacor",
-		"wymarzony",
-	}
 }
