@@ -16,7 +16,7 @@ func GenerateCode(customConfig Config) (string, image.Image) {
 	colorPairs := generateColorPairs(config.ColorHexStringPairs)
 	rect := image.Rect(0, 0, 7*config.Scale*len(text), 7*config.Scale)
 	img := image.NewRGBA(rect)
-	pixelMap := generatePixelColorMapForText(text, colorPairs)
+	pixelMap := generatePixelColorMapForText(text, colorPairs, config.ColorPairsRotation)
 
 	for columnIndex, column := range pixelMap {
 		for rowIndex, colorValue := range column {
@@ -31,13 +31,19 @@ func GenerateCode(customConfig Config) (string, image.Image) {
 	return text, img
 }
 
-func generatePixelColorMapForText(text string, colorPairs []colorPair) [][7]color.RGBA {
+func generatePixelColorMapForText(text string, colorPairs []colorPair, colorPairsRotation int) [][7]color.RGBA {
 	pixelMap := make([][7]color.RGBA, len(text)*7)
 	rand.Seed(time.Now().UnixNano())
 
 	for characterIndex, character := range text {
 		characterMap := getPaddedCharacterMap(character)
-		colorPair := colorPairs[rand.Intn(len(colorPairs))]
+		var colorPair colorPair
+
+		if colorPairsRotation == ColorPairsRotationSequence {
+			colorPair = colorPairs[characterIndex%len(colorPairs)]
+		} else {
+			colorPair = colorPairs[rand.Intn(len(colorPairs))]
+		}
 
 		for lineIndex, line := range characterMap {
 			lineBitMap := fmt.Sprintf("%06s", strconv.FormatInt(line, 2)) + "0"
