@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-//HexStringPair represents pair of hex strings representing background and foreground colors
+//HexStringPair represents pair of color hex strings for background and foreground colors
 type HexStringPair struct {
 	BackgroundColor string
 	ForegroundColor string

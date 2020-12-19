@@ -31,7 +31,7 @@ func GenerateCode(customConfig Config) (string, image.Image) {
 	return text, img
 }
 
-func generatePixelColorMapForText(text string, colorPairs []colorPair, colorPairsRotation int) [][7]color.RGBA {
+func generatePixelColorMapForText(text string, colorPairs []colorPair, colorPairsRotation int8) [][7]color.RGBA {
 	pixelMap := make([][7]color.RGBA, len(text)*7)
 	rand.Seed(time.Now().UnixNano())
 
@@ -46,7 +46,7 @@ func generatePixelColorMapForText(text string, colorPairs []colorPair, colorPair
 		}
 
 		for lineIndex, line := range characterMap {
-			lineBitMap := fmt.Sprintf("%06s", strconv.FormatInt(line, 2)) + "0"
+			lineBitMap := fmt.Sprintf("%06s", strconv.FormatInt(int64(line), 2)) + "0"
 
 			for bitOffset, bit := range lineBitMap {
 				value := color.RGBA{}

@@ -1,27 +1,24 @@
 package pikselkapcio
 
 const (
-	//TextGenerationRandom should be used for pseudorandom alphanumeric string for code (it is a default value)
+	//TextGenerationRandom is used for pseudorandom alphanumeric string for code (default value)
 	TextGenerationRandom = 0
-	//TextGenerationCustomWords should be used to generate code from provided custom words list
+	//TextGenerationCustomWords is used to randomly pick code from provided custom words list
 	TextGenerationCustomWords = 1
-	//ColorPairsRotationRandom should be used for random selection of color pair for each character in code image (it is a default value)
+	//ColorPairsRotationRandom is used for random selection of color pair for each character in code image (default value)
 	ColorPairsRotationRandom = 0
-	//ColorPairsRotationSequence should be used for cycling through available color pairs in sequence for each character in code image
+	//ColorPairsRotationSequence is used for cycling through available color pairs in sequence for each character in code image
 	ColorPairsRotationSequence = 1
-	//DefaultSessionKey is default key which is used to store code in users session
-	DefaultSessionKey = "_wl_kapcio"
 )
 
 //Config strucure for whole package
 type Config struct {
 	Scale               int
-	TextGenerationMode  int
-	RandomTextLength    int
+	TextGenerationMode  int8
+	RandomTextLength    int8
 	CustomWords         []string
 	ColorHexStringPairs []HexStringPair
-	ColorPairsRotation  int
-	SessionKey          string
+	ColorPairsRotation  int8
 }
 
 func getDefaultConfig() Config {
@@ -58,10 +55,6 @@ func mergeConfig(customConfig Config) Config {
 
 	if customConfig.ColorPairsRotation != ColorPairsRotationRandom {
 		config.ColorPairsRotation = customConfig.ColorPairsRotation
-	}
-
-	if customConfig.SessionKey != "" {
-		config.SessionKey = customConfig.SessionKey
 	}
 
 	return config

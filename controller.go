@@ -10,9 +10,8 @@ import (
 func ImageHandler(w http.ResponseWriter, r *http.Request) {
 	config := Config{
 		Scale:              4,
-		RandomTextLength:   36,
 		TextGenerationMode: TextGenerationCustomWords,
-		CustomWords:        []string{"wYmaRzony", "loGIN", "Smacznego"},
+		CustomWords:        []string{"Gopher", "Elephant", "Hamster", "Mouse", "Panda"},
 		ColorHexStringPairs: []HexStringPair{
 			{
 				BackgroundColor: "FF0000",
@@ -26,6 +25,9 @@ func ImageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	codeText, codeImageData := GenerateCode(config)
+
+	//here you should store generated codeText in session
+
 	if err := png.Encode(w, codeImageData); err != nil {
 		log.Printf("Error while encoding image for code '%s'", codeText)
 	}

@@ -23,7 +23,7 @@ func getText(config Config) string {
 }
 
 //generateRandomText generates pseudorandom uppercased alphanumeric string of specified length
-func generateRandomText(length int) string {
+func generateRandomText(length int8) string {
 	if length > 36 || length < 1 {
 		panic("Length of random text has to be in [1,36] range")
 	}
