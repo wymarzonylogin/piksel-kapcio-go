@@ -37,9 +37,7 @@ func mergeConfig(customConfig Config) Config {
 		config.Scale = customConfig.Scale
 	}
 
-	if customConfig.TextGenerationMode != TextGenerationRandom {
-		config.TextGenerationMode = customConfig.TextGenerationMode
-	}
+	config.TextGenerationMode = customConfig.TextGenerationMode
 
 	if customConfig.RandomTextLength > 0 && customConfig.RandomTextLength < 37 {
 		config.RandomTextLength = customConfig.RandomTextLength
@@ -53,9 +51,7 @@ func mergeConfig(customConfig Config) Config {
 		config.ColorHexStringPairs = customConfig.ColorHexStringPairs
 	}
 
-	if customConfig.ColorPairsRotation != ColorPairsRotationRandom {
-		config.ColorPairsRotation = customConfig.ColorPairsRotation
-	}
+	config.ColorPairsRotation = customConfig.ColorPairsRotation
 
 	return config
 }
