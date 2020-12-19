@@ -18,17 +18,23 @@ func GenerateCode(customConfig Config) (string, image.Image) {
 	img := image.NewRGBA(rect)
 	pixelMap := generatePixelColorMapForText(text, colorPairs, config.ColorPairsRotation)
 
+	//number of columns: (length of generated code string) * 7 (which is result image width/scale)
+	//number of rows: 7 (which is result image height/scale)
 	for columnIndex, column := range pixelMap {
 		for rowIndex, colorValue := range column {
-			for colOffset := 0; colOffset < config.Scale; colOffset++ {
-				for rowOffset := 0; rowOffset < config.Scale; rowOffset++ {
-					img.SetRGBA(columnIndex*config.Scale+colOffset, rowIndex*config.Scale+rowOffset, colorValue)
-				}
-			}
+			fillScaledUpPixel(columnIndex, rowIndex, config.Scale, colorValue, *img)
 		}
 	}
 
 	return text, img
+}
+
+func fillScaledUpPixel(columnIndex, rowIndex, scale int, colorValue color.RGBA, img image.RGBA) {
+	for colOffset := 0; colOffset < scale; colOffset++ {
+		for rowOffset := 0; rowOffset < scale; rowOffset++ {
+			img.SetRGBA(columnIndex*scale+colOffset, rowIndex*scale+rowOffset, colorValue)
+		}
+	}
 }
 
 func generatePixelColorMapForText(text string, colorPairs []colorPair, colorPairsRotation int8) [][7]color.RGBA {
