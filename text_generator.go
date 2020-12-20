@@ -16,10 +16,24 @@ func getText(config Config) string {
 
 		wordIndex := rand.Intn(customWordsCount)
 
-		return strings.ToUpper(config.CustomWords[wordIndex])
+		return replaceUnsupportedCharaters(strings.ToUpper(config.CustomWords[wordIndex]))
 	}
 
 	return generateRandomText(config.RandomTextLength)
+}
+
+func replaceUnsupportedCharaters(text string) string {
+	var result string
+	supportedCharacters := "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ.+-*/=?() "
+	for _, char := range text {
+		if !strings.Contains(supportedCharacters, string(char)) {
+			result += "*"
+		} else {
+			result += string(char)
+		}
+	}
+
+	return result
 }
 
 //generateRandomText generates pseudorandom uppercased alphanumeric string of specified length

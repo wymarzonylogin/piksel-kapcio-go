@@ -51,9 +51,9 @@ func TestGenerateCode(t *testing.T) {
 
 	codeText, codeImageData = GenerateCode(config)
 
-	//letters of generated code string are always uppercase
-	if codeText != "TESTING_IS_FUN" {
-		t.Error("Generated code should be 'TESTING_IS_FUN'")
+	//letters of generated code string are always uppercase, unsupported characters (here '_') are replaced with '*'
+	if codeText != "TESTING*IS*FUN" {
+		t.Error("Generated code should be 'TESTING*IS*FUN'")
 	}
 
 	//if ColorPairsRotationSequence is used, last (14th) charcter will get 2nd out of 3 defined color pairs
@@ -78,8 +78,8 @@ func TestGenerateCode(t *testing.T) {
 
 	codeText, codeImageData = GenerateCode(config)
 
-	if codeText != "ZAŻÓŁĆ GĘŚLĄ JAŹŃ" {
-		t.Error("Generated code should be 'ZAŻÓŁĆ GĘŚLĄ JAŹŃ'")
+	if codeText != "ZA**** G**L* JA**" {
+		t.Error("Generated code should be 'ZA**** G**L* JA**'")
 	}
 
 	if codeImageData.Bounds().Size().X != 7*2*17 {
