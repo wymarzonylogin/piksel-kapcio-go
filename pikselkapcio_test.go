@@ -32,7 +32,7 @@ func TestGenerateCode(t *testing.T) {
 	config = Config{
 		CustomWords:        []string{"Testing_is_fun"},
 		TextGenerationMode: TextGenerationCustomWords,
-		ColorHexStringPairs: []HexStringPair{
+		ColorHexStringPairs: []ColorHexStringPair{
 			{
 				BackgroundColor: "FF0000",
 				ForegroundColor: "FFFFFF",
