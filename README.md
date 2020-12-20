@@ -4,12 +4,12 @@ This package is a simple captcha implementation for **Go**. It is a port of orig
 ![piksel-kapcio-title](https://wymarzonylog.in/img/github/piksel-kapcio/piksel-kapcio-title.png)
 
 ## Index
-1. [Session Handling](##Session-handling)
-2. [General flow](##General-flow)
-3. [Text generation](##Test-generation)
-4. [Image generation](##Image-generation)
-5. [Configuration](##Configuration)
-6. [Full example](##Full-example)
+1. [Session Handling](#session-handling)
+2. [General flow](#general-flow)
+3. [Text generation](#test-generation)
+4. [Image generation](#image-generation)
+5. [Configuration](#configuration)
+6. [Full example](#full-example)
 
 ## Session handling
 I decided not to introduce dependancy on any session implementation for this package. There is a strong chance you are already using a different implementation than the one I would choose. This makes usage of this package a bit more cumbersome than it's PHP counterpart, but i believe it's still better than introducing dependancy that could be redundant. This document, however, covers fully operating example with use of great and widely used https://github.com/gorilla/sessions.
