@@ -6,6 +6,8 @@ import (
 )
 
 func TestGenerateCode(t *testing.T) {
+	//Case 1
+	//Test generated image size and code length
 	config := Config{
 		Scale:            9,
 		RandomTextLength: 12,
@@ -25,6 +27,8 @@ func TestGenerateCode(t *testing.T) {
 		t.Error("Image height should be 63")
 	}
 
+	//Case 2
+	//test image foreground and background colors for last character
 	config = Config{
 		CustomWords:        []string{"Testing_is_fun"},
 		TextGenerationMode: TextGenerationCustomWords,
@@ -53,7 +57,6 @@ func TestGenerateCode(t *testing.T) {
 	}
 
 	//if ColorPairsRotationSequence is used, last (14th) charcter will get 2nd out of 3 defined color pairs
-
 	expectedLastCharacterBacgroundColor := color.RGBA{136, 0, 136, 255} //880088
 	actualLastCharacterBackgroundColor := codeImageData.At(codeImageData.Bounds().Max.X-1, codeImageData.Bounds().Max.Y-1)
 
@@ -66,5 +69,20 @@ func TestGenerateCode(t *testing.T) {
 
 	if actualLastCharacterForeroundColor != expectedLastCharacterForegroundColor {
 		t.Error("Invalid last characters foreground color")
+	}
+
+	//Case 3
+	//test image width and code case for multibyte utf8 characters
+	config.CustomWords = []string{"Zażółć gęślą jaźń"}
+	config.Scale = 2
+
+	codeText, codeImageData = GenerateCode(config)
+
+	if codeText != "ZAŻÓŁĆ GĘŚLĄ JAŹŃ" {
+		t.Error("Generated code should be 'ZAŻÓŁĆ GĘŚLĄ JAŹŃ'")
+	}
+
+	if codeImageData.Bounds().Size().X != 7*2*17 {
+		t.Error("Image width should be 238")
 	}
 }

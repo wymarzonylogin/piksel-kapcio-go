@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"strconv"
 	"time"
+	"unicode/utf8"
 )
 
 //GenerateCode generates image data, returns both code as string and image data
@@ -14,7 +15,7 @@ func GenerateCode(customConfig Config) (string, image.Image) {
 	config := mergeConfig(customConfig)
 	text := getText(config)
 	colorPairs := generateColorPairs(config.ColorHexStringPairs)
-	rect := image.Rect(0, 0, 7*config.Scale*len(text), 7*config.Scale)
+	rect := image.Rect(0, 0, 7*config.Scale*utf8.RuneCountInString(text), 7*config.Scale)
 	img := image.NewRGBA(rect)
 	pixelMap := generatePixelColorMapForText(text, colorPairs, config.ColorPairsRotation)
 
@@ -38,10 +39,14 @@ func fillScaledUpPixel(columnIndex, rowIndex, scale int, colorValue color.RGBA, 
 }
 
 func generatePixelColorMapForText(text string, colorPairs []colorPair, colorPairsRotation int8) [][7]color.RGBA {
-	pixelMap := make([][7]color.RGBA, len(text)*7)
+	pixelMap := make([][7]color.RGBA, utf8.RuneCountInString(text)*7)
 	rand.Seed(time.Now().UnixNano())
 
-	for characterIndex, character := range text {
+	//I need to introduce own characterIndex, as index from range in utf8 string represents character position,
+	//so it grows by more than 1 for multibyte utf8 characters
+	var characterIndex int
+
+	for _, character := range text {
 		characterMap := getPaddedCharacterMap(character)
 		var colorPair colorPair
 
@@ -64,6 +69,7 @@ func generatePixelColorMapForText(text string, colorPairs []colorPair, colorPair
 				pixelMap[characterIndex*7+bitOffset][lineIndex] = value
 			}
 		}
+		characterIndex++
 	}
 
 	return pixelMap

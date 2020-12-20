@@ -14,6 +14,15 @@ func padCharacterMap(characterMap [5]int8) [7]int8 {
 }
 
 //getCharacterMap returns set of 5 integers representing 5 rows of pixels of a given character
+//each given decimal number in binary notation represents which pixels should be "on" in given graphical representation of a character
+//example for 'A':
+//decimal numbers 14, 17, 31, 17, 17 translate to binary:
+//  1110
+// 10001
+// 11111
+// 10001
+// 10001
+//graphically representing capital letter 'A' with bits that are set
 func getCharacterMap(character rune) [5]int8 {
 	switch character {
 	case 'A':
@@ -94,8 +103,6 @@ func getCharacterMap(character rune) [5]int8 {
 		return [5]int8{4, 4, 31, 4, 4}
 	case '-':
 		return [5]int8{0, 0, 31, 0, 0}
-	case '*':
-		return [5]int8{21, 14, 4, 14, 21}
 	case '/':
 		return [5]int8{1, 2, 4, 8, 16}
 	case '=':
@@ -106,7 +113,10 @@ func getCharacterMap(character rune) [5]int8 {
 		return [5]int8{2, 4, 4, 4, 2}
 	case ')':
 		return [5]int8{8, 4, 4, 4, 8}
-	default:
+	case ' ':
 		return [5]int8{0, 0, 0, 0, 0}
+	//map for '*' character
+	default:
+		return [5]int8{21, 14, 4, 14, 21}
 	}
 }

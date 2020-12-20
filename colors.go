@@ -6,6 +6,7 @@ import (
 )
 
 //HexStringPair represents pair of color hex strings for background and foreground colors
+//use values like "000000" or "FFFFFF" for example
 type HexStringPair struct {
 	BackgroundColor string
 	ForegroundColor string

@@ -11,15 +11,15 @@ func ImageHandler(w http.ResponseWriter, r *http.Request) {
 	config := Config{
 		Scale:              4,
 		TextGenerationMode: TextGenerationCustomWords,
-		CustomWords:        []string{"Gopher", "Elephant", "Hamster", "Mouse", "Panda"},
+		CustomWords:        []string{"Squirrel", "Gopher", "Elephant", "Hamster", "Octopus", "Panda"},
 		ColorHexStringPairs: []HexStringPair{
 			{
-				BackgroundColor: "FF0000",
-				ForegroundColor: "FFFFFF",
+				BackgroundColor: "7FD5EA",
+				ForegroundColor: "FFDA87",
 			},
 			{
-				BackgroundColor: "FFFFFF",
-				ForegroundColor: "00FF00",
+				BackgroundColor: "FF9587",
+				ForegroundColor: "FFDA87",
 			},
 		},
 	}
