@@ -17,7 +17,7 @@ type Config struct {
 	TextGenerationMode  int8
 	RandomTextLength    int8
 	CustomWords         []string
-	ColorHexStringPairs []HexStringPair
+	ColorHexStringPairs []ColorHexStringPair
 	ColorPairsRotation  int8
 }
 
@@ -56,8 +56,8 @@ func mergeConfig(customConfig Config) Config {
 	return config
 }
 
-func getDefaultHexStringPairs() []HexStringPair {
-	hexStringPairs := []HexStringPair{
+func getDefaultHexStringPairs() []ColorHexStringPair {
+	hexStringPairs := []ColorHexStringPair{
 		{
 			BackgroundColor: "CCCCCC",
 			ForegroundColor: "888888",

@@ -5,9 +5,9 @@ import (
 	"strconv"
 )
 
-//HexStringPair represents pair of color hex strings for background and foreground colors
+//ColorHexStringPair represents pair of color hex strings for background and foreground colors
 //use values like "000000" or "FFFFFF" for example
-type HexStringPair struct {
+type ColorHexStringPair struct {
 	BackgroundColor string
 	ForegroundColor string
 }
@@ -27,7 +27,7 @@ func generateRGBColorFromHexString(hexString string) color.RGBA {
 	return color.RGBA{uint8(decimalColor >> 16), uint8((decimalColor >> 8) & 0xFF), uint8(decimalColor & 0xFF), 255}
 }
 
-func generateColorPairs(hexStringPairs []HexStringPair) []colorPair {
+func generateColorPairs(hexStringPairs []ColorHexStringPair) []colorPair {
 	colorPairs := []colorPair{}
 
 	for _, hexStringPair := range hexStringPairs {
