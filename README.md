@@ -6,7 +6,7 @@ This package is a simple captcha implementation for **Go**. It is a port of orig
 ## Index
 1. [Session Handling](#session-handling)
 2. [General flow](#general-flow)
-3. [Text generation](#test-generation)
+3. [Text generation](#text-generation)
 4. [Image generation](#image-generation)
 5. [Configuration](#configuration)
 6. [Full example](#full-example)
