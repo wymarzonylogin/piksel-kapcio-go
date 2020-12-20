@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/wymarzonylogin/piksel-kapcio-go)](https://goreportcard.com/report/github.com/wymarzonylogin/piksel-kapcio-go)
+
 # Piksel Kapcio Go
 This package is a simple captcha implementation for **Go**. It is a port of original **PHP** implementation of **Piksel Kapcio** library (https://github.com/wymarzonylogin/piksel-kapcio). For general description  please check out original [PHP implementation Piksel Kapcio docs](https://github.com/wymarzonylogin/piksel-kapcio/blob/master/README.md). The major difference between PHP and Go implementations is lack of session handling in Go port. Besides that, they are supposed to behave in an exactly same manner, having identical configuration options. This document covers details specific to Go implementation.
 
